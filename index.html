@@ -6,78 +6,91 @@
     <title>Acesso Exclusivo</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff1166; --whatsapp: #25D366; }
+        :root { --primary: #ff1166; --whatsapp: #25D366; --bg: #000; --quiz-bg: #0c0c0c; }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body, html { 
             height: 100%; 
-            background-color: #000; 
+            background-color: var(--bg); 
             font-family: 'Montserrat', sans-serif; 
-            overflow: hidden;
+            overflow: hidden; 
             display: flex;
             justify-content: center;
         }
         
+        /* Container Principal em Coluna */
+        #main-wrapper {
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--quiz-bg);
+        }
+
+        /* Foto em Cima - Área Dedicada */
+        #photo-container {
+            width: 100%;
+            flex: 1; /* Ocupa o espaço disponível na parte superior */
+            position: relative;
+            background-color: #000;
+        }
+
         #bg-image { 
-            position: fixed; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background-size: cover; 
-            background-position: center 20%; 
+            width: 100%; 
+            height: 100%; 
+            background-size: contain; /* Ajusta a foto inteira sem cortar */
+            background-position: center bottom; /* Centraliza a foto */
             background-repeat: no-repeat;
             transition: opacity 0.4s ease-in-out; 
-            z-index: -2; 
+            opacity: 0; /* Começa transparente e aparece com fade */
         }
 
-        .overlay { 
-            position: fixed; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, transparent 15%, rgba(0,0,0,0.85) 85%); 
-            z-index: -1; 
-        }
-        
-        #prog-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: rgba(255,255,255,0.1); z-index: 100; }
-        #bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; }
+        #prog-container { position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); z-index: 100; }
+        #bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; box-shadow: 0 0 10px var(--primary); }
 
-        #main-container {
-            position: absolute;
-            bottom: 0;
+        /* Quiz em Baixo - Área Dedicada */
+        #quiz-container {
             width: 100%;
-            max-width: 500px;
-            padding: 20px 20px 40px 20px;
-            background: rgba(10, 10, 10, 0.9);
+            padding: 30px 20px 40px 20px;
+            background-color: var(--quiz-bg);
             border-top: 2px solid var(--primary);
             border-radius: 25px 25px 0 0;
             text-align: center;
-            backdrop-filter: blur(5px);
-            z-index: 10;
+            position: relative; /* Garante que os botões não sumam */
         }
 
-        h2 { color: #fff; font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; line-height: 1.2; }
-        .opt-btn { display: block; width: 100%; padding: 16px; margin-bottom: 10px; border: 1px solid var(--primary); border-radius: 12px; background: rgba(255, 255, 255, 0.05); color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        h2 { color: #fff; font-size: 1.15rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; line-height: 1.3; }
+        .opt-btn { display: block; width: 100%; padding: 18px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; background: rgba(255, 255, 255, 0.05); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .opt-btn:active { background: var(--primary); transform: scale(0.96); }
 
-        .final-btn { text-decoration: none; display: flex; flex-direction: column; padding: 18px; margin-top: 12px; border-radius: 12px; color: #fff; font-weight: 900; text-transform: uppercase; text-align: center; }
-        #btn-pack { background: linear-gradient(45deg, var(--primary), #ff5588); }
-        #btn-call { background: linear-gradient(45deg, var(--whatsapp), #128C7E); }
-        .price { font-size: 0.8rem; font-weight: 400; opacity: 0.95; margin-top: 3px; }
+        .final-btn { text-decoration: none; display: flex; flex-direction: column; padding: 20px; margin-top: 15px; border-radius: 15px; color: #fff; font-weight: 800; text-transform: uppercase; text-align: center; }
+        #btn-pack { background: linear-gradient(45deg, var(--primary), #ff5588); box-shadow: 0 5px 15px rgba(255,17,102,0.4); }
+        #btn-call { background: linear-gradient(45deg, var(--whatsapp), #128C7E); box-shadow: 0 5px 15px rgba(37,211,102,0.3); }
+        .price { font-size: 0.8rem; font-weight: 400; opacity: 0.95; margin-top: 4px; }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
-    <div id="prog-container"><div id="bar"></div></div>
-    <div id="bg-image"></div>
-    <div class="overlay"></div>
 
-    <div id="main-container">
-        <div id="q-area">
-            <h2 id="q-text">Carregando...</h2>
-            <div id="o-btns"></div>
+    <div id="main-wrapper">
+        <div id="photo-container">
+            <div id="prog-container"><div id="bar"></div></div>
+            <div id="bg-image"></div>
         </div>
-        <div id="r-area" class="hidden">
-            <h2 style="color: var(--primary);">🔥 ACESSO LIBERADO!</h2>
-            <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 15px;">Você provou ser quem eu procuro. Escolha agora:</p>
-            <a href="https://seguropagamentos.com.br/ladeia-be2" class="final-btn" id="btn-pack">📸 ACESSAR MEU PACK VIP <span class="price">Acesso imediato por R$ 8,74</span></a>
-            <a href="https://seguropagamentos.com.br/ladeia-be" class="final-btn" id="btn-call">📞 WHATSAPP + VÍDEO <span class="price">Conversa ilimitada por R$ 12,87</span></a>
+
+        <div id="quiz-container">
+            <div id="q-area">
+                <h2 id="q-text">Carregando...</h2>
+                <div id="o-btns"></div>
+            </div>
+            <div id="r-area" class="hidden">
+                <h2 style="color: var(--primary); margin-bottom: 10px;">🔥 ACESSO LIBERADO!</h2>
+                <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 20px;">Parabéns! Você passou no teste. Como quer me ter agora?</p>
+                <a href="https://seguropagamentos.com.br/ladeia-be2" class="final-btn" id="btn-pack">📸 VER MEU PACK VIP <span class="price">R$ 8,74</span></a>
+                <a href="https://seguropagamentos.com.br/ladeia-be" class="final-btn" id="btn-call">📞 MEU WHATSAPP <span class="price">R$ 12,87</span></a>
+                <p style="font-size: 0.7rem; margin-top: 20px; opacity: 0.4; text-align: center;">Pagamento 100% discreto via RisePay</p>
+            </div>
         </div>
     </div>
 
@@ -85,7 +98,7 @@
         const qs = [
             { q: "Como você prefere passar o tempo comigo?", opts: ["Observando em silêncio", "Trocando segredos"], img: "https://i.ibb.co/bMZTQqV0/Whats-App-Image-2026-04-17-at-18-55-54-1.jpg" },
             { q: "O que mais te atiça quando vê um post meu?", opts: ["O que eu escondo", "Falar o que faria comigo"], img: "https://i.ibb.co/mVCxYcc0/Whats-App-Image-2026-04-17-at-18-55-54.jpg" },
-            { q: "Você se considera um homem de atitude?", opts: ["Muita, busco o que quero", "Prefiro que você mande"], img: "https://i.ibb.co/b5FJmtJw/Whats-App-Image-2026-04-17-at-18-55-55-1.jpg" },
+            { q: "Você se considera um homem de atitude?", opts: ["Sim, busco o que quero", "Prefiro que você mande"], img: "https://i.ibb.co/b5FJmtJw/Whats-App-Image-2026-04-17-at-18-55-55-1.jpg" },
             { q: "Se tivéssemos 10 minutos agora, você...", opts: ["Veria meus vídeos proibidos", "Me chamaria no vídeo agora"], img: "https://i.ibb.co/spJg377s/Whats-App-Image-2026-04-17-at-18-55-55-2.jpg" },
             { q: "Pronto para entrar no meu mundo privado?", opts: ["Sim, libera tudo!", "Sim, quero você agora!"], img: "https://i.ibb.co/TD8M8VYP/Whats-App-Image-2026-04-17-at-18-55-55-3.jpg" }
         ];
@@ -99,6 +112,7 @@
                 const data = qs[step];
                 document.getElementById('q-text').innerText = data.q;
                 
+                // Pré-carregamento para evitar fundo preto e nítidez total
                 const tempImg = new Image();
                 tempImg.src = data.img;
                 tempImg.onload = () => {
@@ -113,12 +127,18 @@
                 });
                 document.getElementById('bar').style.width = ((step + 1) / qs.length * 100) + '%';
             } else {
-                document.getElementById('q-area').classList.add('hidden');
-                document.getElementById('r-area').classList.remove('hidden');
-                bg.style.backgroundImage = `url('${imgFinal}')`;
-                document.getElementById('bar').style.width = "100%";
+                showFinal();
             }
         }
+
+        function showFinal() {
+            document.getElementById('q-area').classList.add('hidden');
+            document.getElementById('r-area').classList.remove('hidden');
+            bg.style.backgroundImage = `url('${imgFinal}')`;
+            bg.style.opacity = 1;
+            document.getElementById('bar').style.width = "100%";
+        }
+
         window.onload = load;
     </script>
 </body>
