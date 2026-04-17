@@ -21,57 +21,55 @@
         #bg-image { 
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%; 
-            background-size: contain; /* ALTERADO: Agora a foto se ajusta sem esticar e sem perder qualidade */
+            background-size: cover; /* Preenchimento total */
+            background-position: center 15%; 
             background-repeat: no-repeat;
-            background-color: #000;
-            background-position: center top; 
-            transition: opacity 0.4s ease; 
-            z-index: -2; 
+            transition: opacity 0.3s ease-in-out; 
+            z-index: -2;
+            image-rendering: -webkit-optimize-contrast; /* Força nitidez */
         }
 
         .overlay { 
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,1) 95%); 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%); 
             z-index: -1; 
         }
         
         #prog-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: rgba(255,255,255,0.1); z-index: 100; }
         #bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; }
 
-        /* Container ULTRA COMPACTO para não tampar nada */
         #main-container {
             position: absolute;
             bottom: 0;
             width: 100%;
             max-width: 450px;
-            padding: 15px 20px 25px 20px;
+            padding: 20px 20px 35px 20px;
             background: rgba(0, 0, 0, 0.9);
             border-top: 2px solid var(--primary);
-            border-radius: 20px 20px 0 0;
+            border-radius: 25px 25px 0 0;
             text-align: center;
             z-index: 10;
         }
 
-        h2 { color: #fff; font-size: 0.9rem; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; }
+        h2 { color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 15px; text-transform: uppercase; }
 
         .opt-btn { 
-            display: block; width: 100%; padding: 12px; margin-bottom: 8px; 
-            border: 1px solid var(--primary); border-radius: 10px;
+            display: block; width: 100%; padding: 16px; margin-bottom: 10px; 
+            border: 1px solid var(--primary); border-radius: 12px;
             background: rgba(255, 255, 255, 0.05); color: #fff; 
-            font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            font-size: 0.9rem; font-weight: 600; cursor: pointer;
         }
 
         .final-btn { 
-            text-decoration: none; display: block; padding: 15px; margin-top: 8px; 
-            border-radius: 10px; color: #fff; font-weight: 800; 
-            text-transform: uppercase; font-size: 0.9rem;
+            text-decoration: none; display: block; padding: 18px; margin-top: 10px; 
+            border-radius: 12px; color: #fff; font-weight: 900; 
+            text-transform: uppercase; font-size: 1rem;
         }
 
         #btn-pack { background: var(--primary); }
         #btn-call { background: var(--whatsapp); }
-
-        .price { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.9; }
+        .price { display: block; font-size: 0.8rem; font-weight: 400; opacity: 0.9; margin-top: 4px; }
         .hidden { display: none !important; }
     </style>
 </head>
@@ -93,14 +91,15 @@
     </div>
 
     <script>
+        // Usei links diretos de alta qualidade
         const qs = [
-            { q: "Como prefere passar o tempo comigo?", opts: ["Em silêncio", "Trocando segredos"], img: "https://i.ibb.co/27XZ5vgw/image.png" },
-            { q: "O que mais te atiça?", opts: ["O que eu escondo", "O que eu faria com você"], img: "https://i.ibb.co/Sw6xHqs8/image.png" },
-            { q: "Você tem atitude?", opts: ["Muita, quero agora", "Gosto que você mande"], img: "https://i.ibb.co/CKJZR0Ly/image.png" },
-            { q: "Se tivéssemos 10 minutos agora...", opts: ["Vídeos proibidos", "Vídeo chamada"], img: "https://i.ibb.co/Gf4Kgk0Y/image.png" },
-            { q: "Pronto para ver meu lado privado?", opts: ["Libera tudo!", "Quero você!"], img: "https://i.ibb.co/Fkg7823p/image.png" }
+            { q: "Como prefere passar o tempo comigo?", opts: ["Em silêncio", "Trocando segredos"], img: "https://i.postimg.cc/85zMtcST/image.png" },
+            { q: "O que mais te atiça?", opts: ["O que eu escondo", "O que eu faria com você"], img: "https://i.postimg.cc/jSzv6zT8/image.png" },
+            { q: "Você tem atitude?", opts: ["Muita, quero agora", "Gosto que você mande"], img: "https://i.postimg.cc/mD8T1hB6/image.png" },
+            { q: "Se tivéssemos 10 minutos agora...", opts: ["Vídeos proibidos", "Vídeo chamada"], img: "https://i.postimg.cc/sXv0G9Pj/image.png" },
+            { q: "Pronto para ver meu lado privado?", opts: ["Libera tudo!", "Quero você!"], img: "https://i.postimg.cc/q7SjH99V/image.png" }
         ];
-        const imgFinal = "https://i.ibb.co/S4ZKRPgh/image.png";
+        const imgFinal = "https://i.postimg.cc/3R3Kk4Ym/image.png";
         
         let step = 0;
         const bg = document.getElementById('bg-image');
