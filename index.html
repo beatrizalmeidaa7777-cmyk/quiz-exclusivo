@@ -4,39 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Acesso Exclusivo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff1166; --whatsapp: #25D366; --bg: #000; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        body, html { height: 100%; background-color: var(--bg); font-family: 'Montserrat', sans-serif; overflow: hidden; display: flex; justify-content: center; }
+        :root { --primary: #ff1166; --whatsapp: #25D366; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
-        #bg-image { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.5s ease; z-index: -2; background-repeat: no-repeat; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 5%, rgba(0,0,0,0.7) 40%, #000 90%); z-index: -1; }
+        body, html { 
+            height: 100%; 
+            background-color: #000; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
         
-        #prog-container { position: fixed; top: 0; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); z-index: 100; }
-        #bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; box-shadow: 0 0 10px var(--primary); }
+        /* Fundo Ajustado para não esticar e mostrar mais */
+        #bg-image { 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background-size: cover; 
+            background-position: center 20%; /* Ajusta para não cortar o topo */
+            transition: opacity 0.5s ease; 
+            z-index: -2; 
+        }
 
+        /* Overlay mais sutil */
+        .overlay { 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.85) 100%); 
+            z-index: -1; 
+        }
+        
+        #prog-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: rgba(255,255,255,0.1); z-index: 100; }
+        #bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; }
+
+        /* Container mais baixo e compacto */
         #main-container {
             position: absolute;
             bottom: 0;
             width: 100%;
             max-width: 500px;
-            padding: 30px 20px 50px 20px;
-            background: rgba(10, 10, 10, 0.95);
-            border-top: 3px solid var(--primary);
-            border-radius: 30px 30px 0 0;
+            padding: 20px 20px 30px 20px;
+            background: rgba(10, 10, 10, 0.85); /* Mais transparente */
+            backdrop-filter: blur(5px);
+            border-top: 2px solid var(--primary);
+            border-radius: 25px 25px 0 0;
             text-align: center;
-            backdrop-filter: blur(10px);
+            z-index: 10;
         }
 
-        h2 { color: #fff; font-size: 1.15rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; line-height: 1.3; }
-        .opt-btn { display: block; width: 100%; padding: 18px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.15); border-radius: 15px; background: rgba(255,255,255,0.06); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .opt-btn:active { background: var(--primary); transform: scale(0.96); }
+        h2 { 
+            color: #fff; 
+            font-size: 1rem; /* Diminuído para sobrar espaço */
+            font-weight: 800; 
+            margin-bottom: 15px; 
+            text-transform: uppercase;
+        }
 
-        .final-btn { text-decoration: none; display: flex; flex-direction: column; padding: 20px; margin-top: 15px; border-radius: 15px; color: #fff; font-weight: 800; text-transform: uppercase; text-align: center; }
-        #btn-pack { background: linear-gradient(45deg, var(--primary), #ff5588); box-shadow: 0 5px 15px rgba(255,17,102,0.4); }
-        #btn-call { background: linear-gradient(45deg, var(--whatsapp), #128C7E); box-shadow: 0 5px 15px rgba(37,211,102,0.3); }
-        .price { font-size: 0.8rem; font-weight: 400; opacity: 0.95; margin-top: 4px; }
+        .opt-btn { 
+            display: block; 
+            width: 100%; 
+            padding: 14px; /* Mais compacto */
+            margin-bottom: 8px; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05); 
+            color: #fff; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            cursor: pointer;
+        }
+
+        .opt-btn:active { background: var(--primary); border-color: var(--primary); }
+
+        .final-btn { 
+            text-decoration: none; 
+            display: block; 
+            padding: 16px; 
+            margin-top: 10px; 
+            border-radius: 12px; 
+            color: #fff; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            font-size: 0.9rem;
+        }
+
+        #btn-pack { background: var(--primary); }
+        #btn-call { background: var(--whatsapp); }
+
+        .price { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.9; margin-top: 2px; }
         .hidden { display: none !important; }
     </style>
 </head>
@@ -50,34 +107,24 @@
             <h2 id="q-text">Carregando...</h2>
             <div id="o-btns"></div>
         </div>
-
         <div id="r-area" class="hidden">
-            <h2 style="color: var(--primary); margin-bottom: 10px;">🔥 ACESSO LIBERADO!</h2>
-            <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 20px;">Parabéns, você passou. Como quer me ter agora?</p>
-            
-            <a href="https://seguropagamentos.com.br/ladeia-be2" class="final-btn" id="btn-pack">
-                📸 ACESSAR MEU PACK VIP 
-                <span class="price">R$ 8,74</span>
-            </a>
-
-            <a href="https://seguropagamentos.com.br/ladeia-be" class="final-btn" id="btn-call">
-                📞 WHATSAPP + VÍDEO 
-                <span class="price">R$ 12,87</span>
-            </a>
+            <h2 style="color: var(--primary); font-size: 1.2rem;">🔥 ACESSO LIBERADO!</h2>
+            <p style="color:#fff; font-size:0.8rem; margin-bottom:15px;">Escolha como me ter agora:</p>
+            <a href="https://seguropagamentos.com.br/ladeia-be2" class="final-btn" id="btn-pack">📸 VER MEU PACK VIP <span class="price">R$ 8,74</span></a>
+            <a href="https://seguropagamentos.com.br/ladeia-be" class="final-btn" id="btn-call">📞 MEU WHATSAPP <span class="price">R$ 12,87</span></a>
         </div>
     </div>
 
     <script>
-        // Perguntas focadas em persuasão e desejo
         const qs = [
-            { q: "Como você prefere passar o tempo comigo?", opts: ["Observando em silêncio", "Trocando segredos"], img: "https://i.ibb.co/27XZ5vgw/image.png" },
-            { q: "O que mais te atiça quando vê um post meu?", opts: ["O que eu escondo", "Falar o que faria comigo"], img: "https://i.ibb.co/Sw6xHqs8/image.png" },
-            { q: "Você se considera um homem de atitude?", opts: ["Sim, busco o que quero", "Prefiro esperar você chamar"], img: "https://i.ibb.co/CKJZR0Ly/image.png" },
-            { q: "Se tivéssemos 10 minutos agora, você...", opts: ["Veria meus vídeos proibidos", "Me chamaria no vídeo agora"], img: "https://i.ibb.co/Gf4Kgk0Y/image.png" },
-            { q: "Pronto para ver meu lado mais privado?", opts: ["Sim, libera meu acesso!", "Quero você só pra mim!"], img: "https://i.ibb.co/Fkg7823p/image.png" }
+            { q: "Como prefere passar o tempo comigo?", opts: ["Observando em silêncio", "Trocando segredos"], img: "https://i.ibb.co/27XZ5vgw/image.png" },
+            { q: "O que mais te atiça?", opts: ["O que eu escondo", "Falar o que faria comigo"], img: "https://i.ibb.co/Sw6xHqs8/image.png" },
+            { q: "Você tem atitude?", opts: ["Muita, quero agora", "Gosto que você mande"], img: "https://i.ibb.co/CKJZR0Ly/image.png" },
+            { q: "Se tivéssemos 10 minutos agora...", opts: ["Vídeos proibidos", "Vídeo chamada"], img: "https://i.ibb.co/Gf4Kgk0Y/image.png" },
+            { q: "Pronto para entrar no meu mundo?", opts: ["Sim, libera tudo!", "Sim, quero você!"], img: "https://i.ibb.co/Fkg7823p/image.png" }
         ];
-        
         const imgFinal = "https://i.ibb.co/S4ZKRPgh/image.png";
+        
         let step = 0;
         const bg = document.getElementById('bg-image');
 
@@ -94,28 +141,18 @@
                     bg.style.opacity = 1;
                 };
 
-                const div = document.getElementById('o-btns'); 
-                div.innerHTML = '';
+                const div = document.getElementById('o-btns'); div.innerHTML = '';
                 data.opts.forEach(o => {
-                    const b = document.createElement('button'); 
-                    b.innerText = o; 
-                    b.className = 'opt-btn';
-                    b.onclick = () => { step++; load(); }; 
-                    div.appendChild(b);
+                    const b = document.createElement('button'); b.innerText = o; b.className = 'opt-btn';
+                    b.onclick = () => { step++; load(); }; div.appendChild(b);
                 });
                 document.getElementById('bar').style.width = ((step + 1) / qs.length * 100) + '%';
             } else {
-                showResult();
+                document.getElementById('q-area').classList.add('hidden');
+                document.getElementById('r-area').classList.remove('hidden');
+                bg.style.backgroundImage = `url('${imgFinal}')`;
             }
         }
-
-        function showResult() {
-            document.getElementById('q-area').classList.add('hidden');
-            document.getElementById('r-area').classList.remove('hidden');
-            bg.style.backgroundImage = `url('${imgFinal}')`;
-            document.getElementById('bar').style.width = "100%";
-        }
-
         window.onload = load;
     </script>
 </body>
